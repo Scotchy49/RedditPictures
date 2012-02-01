@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title>Reddit Images</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="galleria/galleria-1.2.6.min.js"></script>
+	<script type="text/javascript" src="galleria/themes/twelve/galleria.twelve.min.js"></script>
+	<script type="text/javascript" src="galleria/plugins/history/galleria.history.min.js"></script>
+	<script type="text/javascript" src="coffee-script.js"></script>
+	<style type="text/css">
+		body {
+			background-color: black;
+		}
+
+		#pictures_gallery {
+			margin: auto auto;
+			height: 600;
+			width: 800;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		$.ajax({
+			async: true,
+			dataType: 'json',
+			url:'/pics',
+			success: function(data, status, jqXHR) {
+				var after = data.after;
+				var totalImages = data.pictures.length;
+				var page = 1;
+
+				$("#pictures_gallery").galleria({
+					data_source: data.pictures,
+					transition: "slide",
+    				thumbCrop: "height",
+    				showInfo: true,
+    				debug: false,
+    				dummy: 'noimage.jpg',
+    				extend: function(options) {
+    					var gallery = this;
+    					this.attachKeyboard({
+						    left: this.prev,
+						    right: this.next,
+						});
+
+						this.bind('image', function(image) {
+							var index = image.index;
+							if(index > totalImages-5) {
+								$.ajax({
+									async: true,
+									dataType: 'json',
+									url:'/pics/' + after,
+									success: function(data, status, jqXHR) {
+										after = data.after;
+										for( var i = 0; i < data.pictures.length; ++i ) {
+											totalImages++;
+											gallery.push(data.pictures[i]);
+										}
+									}
+								})
+							}
+						});
+    				}
+				})
+			}
+		})
+	</script>
+	<div id="pictures_gallery"></div>
+</body>
+</html>
