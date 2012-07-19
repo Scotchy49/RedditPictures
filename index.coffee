@@ -19,5 +19,8 @@ app.get('/pics/:after?', (req,res) ->
 app.get('/', (req,res) ->
 	return
 )
+port = process.env.PORT || 3000
 
-app.listen(process.env.PORT || 3000)
+app.listen(port)
+
+console.log "process started and listening on #{port}..."

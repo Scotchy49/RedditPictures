@@ -1,5 +1,5 @@
 (function() {
-  var Reddit, app, express;
+  var Reddit, app, express, port;
   express = require('express');
   Reddit = require('./reddit');
   app = express.createServer();
@@ -14,5 +14,7 @@
     });
   });
   app.get('/', function(req, res) {});
-  app.listen(process.env.PORT || 3000);
+  port = process.env.PORT || 3000;
+  app.listen(port);
+  console.log("process started and listening on " + port + "...");
 }).call(this);
