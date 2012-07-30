@@ -8,7 +8,7 @@ Reddit = ->
 		http.get({
 			host: 'www.reddit.com',
 			port: 80,
-			path: "/r/pics/.json?after=#{after}"
+			path: "/r/fffffffuuuuuuuuuuuu/.json?after=#{after}"
 		}, (res) ->
 			data = ""
 			res.on('data', (chunk) ->

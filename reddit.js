@@ -8,7 +8,7 @@
       return http.get({
         host: 'www.reddit.com',
         port: 80,
-        path: "/r/pics/.json?after=" + after
+        path: "/r/fffffffuuuuuuuuuuuu/.json?after=" + after
       }, function(res) {
         var data;
         data = "";
